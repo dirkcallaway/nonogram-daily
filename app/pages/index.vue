@@ -6,6 +6,7 @@ import { useTimer } from '~/composables/useTimer';
 
 const today = new Date().toISOString().slice(0, 10);
 const activeTab = ref<5 | 7>(5);
+const showHelp = ref(false);
 
 const puzzle5 = useNonogramGenerator(today, 5, 0);
 const puzzle7 = useNonogramGenerator(today, 7, 1);
@@ -49,7 +50,13 @@ watch(() => state7.isSolved.value, (solved) => { if (solved) checkResult7.value 
 
 <template>
   <main class="min-h-screen bg-white dark:bg-gray-900 flex flex-col items-center py-10 px-4">
-    <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-1">Nonogram Daily</h1>
+    <div class="flex items-center gap-2 mb-1">
+      <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">Nonogram Daily</h1>
+      <button
+        class="w-6 h-6 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 text-xs font-bold hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors flex items-center justify-center"
+        @click="showHelp = true"
+      >?</button>
+    </div>
     <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
       {{ new Date(today + 'T00:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) }}
     </p>
@@ -112,5 +119,7 @@ watch(() => state7.isSolved.value, (solved) => { if (solved) checkResult7.value 
       </button>
       <ShareButton :date="today" :size="7" :display="timer7.display.value" :solved="state7.isSolved.value" />
     </div>
+
+    <HowToPlayModal v-if="showHelp" @close="showHelp = false" />
   </main>
 </template>
