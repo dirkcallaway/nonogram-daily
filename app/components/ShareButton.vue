@@ -22,9 +22,13 @@ import { ref } from 'vue';
 
   async function share() {
     const text = buildShareText();
-    await navigator.clipboard.writeText(text);
-    copied.value = true;
-    setTimeout(() => (copied.value = false), 2000);
+    if (navigator.share) {
+      await navigator.share({ text });
+    } else {
+      await navigator.clipboard.writeText(text);
+      copied.value = true;
+      setTimeout(() => (copied.value = false), 2000);
+    }
   }
 </script>
 
