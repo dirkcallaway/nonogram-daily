@@ -29,11 +29,12 @@ import { ref } from 'vue';
 </script>
 
 <template>
-  <button
-    v-if="solved"
-    class="mt-4 px-4 py-2 rounded-lg bg-green-500 hover:bg-green-600 text-white font-semibold transition-colors"
-    @click="share"
-  >
-    {{ copied ? 'Copied!' : 'Share Result' }}
-  </button>
+  <div v-if="solved" class="flex justify-center w-full">
+    <button
+      class="mt-4 px-4 py-2 rounded-lg bg-green-500 hover:bg-green-600 text-white font-semibold transition-colors"
+      @click="share"
+    >
+      {{ copied ? 'Copied!' : 'Share Result' }}
+    </button>
+  </div>
 </template>

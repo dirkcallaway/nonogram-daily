@@ -70,7 +70,7 @@ watch(() => state7.isSolved.value, (solved) => { if (solved) checkResult7.value 
     </div>
 
     <!-- 5x5 Puzzle -->
-    <div v-show="activeTab === 5" class="flex flex-col items-center gap-4">
+    <div v-show="activeTab === 5" class="flex flex-col items-center gap-4 w-max">
       <PuzzleTimer :display="timer5.display.value" :solved="state5.isSolved.value" />
       <NonogramGrid
         :row-clues="puzzle5.rowClues"
@@ -92,7 +92,7 @@ watch(() => state7.isSolved.value, (solved) => { if (solved) checkResult7.value 
     </div>
 
     <!-- 7x7 Puzzle -->
-    <div v-show="activeTab === 7" class="flex flex-col items-center gap-4">
+    <div v-show="activeTab === 7" class="flex flex-col items-center gap-4 w-max">
       <PuzzleTimer :display="timer7.display.value" :solved="state7.isSolved.value" />
       <NonogramGrid
         :row-clues="puzzle7.rowClues"
