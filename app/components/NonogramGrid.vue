@@ -22,7 +22,7 @@ function cellClass(state: number): string {
 <template>
   <div
     class="inline-grid gap-px"
-    :style="`grid-template-columns: auto repeat(${colClues.length}, 2rem)`"
+    :style="`grid-template-columns: auto repeat(${colClues.length}, 3rem)`"
   >
     <!-- Top-left corner -->
     <div />
@@ -51,7 +51,7 @@ function cellClass(state: number): string {
       <button
         v-for="(cell, colIdx) in row"
         :key="`cell-${rowIdx}-${colIdx}`"
-        class="w-8 h-8 border border-gray-400 dark:border-gray-600 flex items-center justify-center text-xs font-bold transition-colors"
+        class="w-12 h-12 border border-gray-400 dark:border-gray-600 flex items-center justify-center text-sm font-bold transition-colors"
         :class="cellClass(cell)"
         :disabled="solved"
         @click="$emit('cell-click', rowIdx, colIdx)"
