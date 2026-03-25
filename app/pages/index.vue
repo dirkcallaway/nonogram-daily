@@ -20,6 +20,8 @@ const timer7 = useTimer(today, 7);
 
 const checkResult5 = ref<{ rowMatches: boolean[], colMatches: boolean[] } | null>(null);
 const checkResult7 = ref<{ rowMatches: boolean[], colMatches: boolean[] } | null>(null);
+const confirmClear5 = ref(false);
+const confirmClear7 = ref(false);
 
 function handleCellClick5(row: number, col: number) {
   if (state5.isSolved.value) return;
@@ -43,6 +45,18 @@ function handleCheck5() {
 
 function handleCheck7() {
   checkResult7.value = state7.checkProgress();
+}
+
+function handleClear5() {
+  state5.clearGrid();
+  checkResult5.value = null;
+  confirmClear5.value = false;
+}
+
+function handleClear7() {
+  state7.clearGrid();
+  checkResult7.value = null;
+  confirmClear7.value = false;
 }
 
 watch(() => state5.isSolved.value, (solved) => { if (solved) checkResult5.value = null });
@@ -96,6 +110,26 @@ watch(() => state7.isSolved.value, (solved) => { if (solved) checkResult7.value 
       >
         Check Progress
       </button>
+      <div v-if="!state5.isSolved.value" class="flex items-center gap-2">
+        <button
+          v-if="!confirmClear5"
+          class="px-4 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+          @click="confirmClear5 = true"
+        >
+          Clear
+        </button>
+        <template v-else>
+          <span class="text-sm text-gray-500 dark:text-gray-400">Clear grid?</span>
+          <button
+            class="px-3 py-1 rounded-lg border border-red-300 dark:border-red-700 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+            @click="handleClear5"
+          >Yes</button>
+          <button
+            class="px-3 py-1 rounded-lg border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            @click="confirmClear5 = false"
+          >Cancel</button>
+        </template>
+      </div>
       <ShareButton :date="today" :size="5" :display="timer5.display.value" :solved="state5.isSolved.value" />
     </div>
 
@@ -118,6 +152,26 @@ watch(() => state7.isSolved.value, (solved) => { if (solved) checkResult7.value 
       >
         Check Progress
       </button>
+      <div v-if="!state7.isSolved.value" class="flex items-center gap-2">
+        <button
+          v-if="!confirmClear7"
+          class="px-4 py-1.5 rounded-lg border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+          @click="confirmClear7 = true"
+        >
+          Clear
+        </button>
+        <template v-else>
+          <span class="text-sm text-gray-500 dark:text-gray-400">Clear grid?</span>
+          <button
+            class="px-3 py-1 rounded-lg border border-red-300 dark:border-red-700 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+            @click="handleClear7"
+          >Yes</button>
+          <button
+            class="px-3 py-1 rounded-lg border border-gray-300 dark:border-gray-600 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
+            @click="confirmClear7 = false"
+          >Cancel</button>
+        </template>
+      </div>
       <ShareButton :date="today" :size="7" :display="timer7.display.value" :solved="state7.isSolved.value" />
     </div>
 

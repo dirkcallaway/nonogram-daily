@@ -39,6 +39,11 @@ export function usePuzzleState(
     storage.save(grid.value);
   }
 
+  function clearGrid() {
+    grid.value = Array.from({ length: size }, () => Array(size).fill(0));
+    storage.save(grid.value);
+  }
+
   function checkProgress() {
     const rowMatches = grid.value.map((row, i) =>
     cluesMatch(getClues(row), rowClues[i]!)
@@ -58,5 +63,5 @@ export function usePuzzleState(
     return rowMatches.every(Boolean) && colMatches.every(Boolean);
   })
 
-  return { grid, cycleCell, checkProgress, isSolved };
+  return { grid, cycleCell, clearGrid, checkProgress, isSolved };
 }
